@@ -135,8 +135,11 @@ GameObject:
   - component: {fileID: 74720799}
   - component: {fileID: 74720798}
   - component: {fileID: 74720800}
+
   - component: {fileID: 74720803}
   - component: {fileID: 74720801}
+=======
+
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -224,7 +227,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6168bac91296a545b623377ee3c9688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+
   speed: 15
+=======
+  speed: 7.5
+
 --- !u!50 &74720799
 Rigidbody2D:
   serializedVersion: 4
@@ -272,6 +279,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+
 --- !u!114 &74720801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +306,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumppower: 5
+=======
+
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,6 +540,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+
 --- !u!1 &1105634498
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,6 +652,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+
 --- !u!1 &1499146196
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +667,11 @@ GameObject:
   - component: {fileID: 1499146200}
   m_Layer: 0
   m_Name: Square
+
   m_TagString: Ground
+=======
+  m_TagString: Untagged
+
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
