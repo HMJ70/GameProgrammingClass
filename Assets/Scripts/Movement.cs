@@ -6,9 +6,12 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb2d;
     private Vector2 direction = new Vector2();
 
+    Animator animator;
+
     private void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();    
     }
 
     public void SetDirection(float xDirection)
@@ -18,4 +21,8 @@ public class Movement : MonoBehaviour
         rb2d.velocity = direction;
     }
 
+    private void FixedUpdate()
+    {
+        animator.SetFloat("xVelocity", System.Math.Abs(rb2d.velocity.x));
+    }
 }
