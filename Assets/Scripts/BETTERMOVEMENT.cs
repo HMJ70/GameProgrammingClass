@@ -13,6 +13,16 @@ public class BETTERMOVEMENT : MonoBehaviour
     float horizontalmove;
     Animator animator;
 
+    public float JumpPower = 10f;
+
+    public Transform checkground;
+    public Vector2 checkgroundsize = new Vector2(0.5f, 0.05f);
+    public LayerMask groundlayer;
+
+    public float basegravity = 2f;
+    public float maxfallspeed = 18f;
+    public float fallspeedmultiplier = 2f; 
+
     private void Awake()
     {
         
@@ -32,6 +42,8 @@ public class BETTERMOVEMENT : MonoBehaviour
         {
             Flip();
         }
+
+        gravity();
     }
         
     public void Move(InputAction.CallbackContext context)
@@ -49,5 +61,62 @@ public class BETTERMOVEMENT : MonoBehaviour
     private void FixedUpdate()
     {
         animator.SetFloat("xVelocity", System.Math.Abs(rb2d.velocity.x));
+    }
+
+    //public void jump(InputAction.CallbackContext context)
+    //{
+    //    if (isgrounded())
+    //    {
+    //        if (context.performed)
+    //        {
+    //            rb2d.velocity = new Vector2(rb2d.velocity.x, JumpPower);
+    //        }
+    //        else if (context.canceled)
+    //        {
+    //            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.5f);
+    //        }
+    //    }
+    //}
+
+    public void jump(InputAction.CallbackContext context)
+    {
+        if (context.performed && isgrounded())
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, JumpPower);
+        }
+
+        if (context.canceled && rb2d.velocity.y > 0)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.5f);
+        }
+    }
+
+    private bool isgrounded()
+    {
+        if(Physics2D.OverlapBox(checkground.position, checkgroundsize,0,groundlayer))
+        {
+            return true;
+        }
+        return false;  
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(checkground.position, checkgroundsize);
+    }
+
+    private void gravity()
+    {
+        if (rb2d.velocity.y < 0)
+        {
+            rb2d.gravityScale = basegravity * fallspeedmultiplier;
+            rb2d.velocity = new Vector2(rb2d.velocity.x, Mathf.Max(rb2d.velocity.y, -maxfallspeed));
+        }
+        else
+        {
+            rb2d.gravityScale = basegravity;
+        }
     }
 }
