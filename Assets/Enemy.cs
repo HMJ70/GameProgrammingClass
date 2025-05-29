@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private bool isgrounded;
     private bool shouldjump;
 
+    public bool facingRight = true;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -45,6 +46,24 @@ public class Enemy : MonoBehaviour
                 shouldjump = true;
             }
         }
+
+        float xDirection = Input.GetAxisRaw("Horizontal");
+        if (xDirection > 0 && !facingRight)
+        {
+            Flip();
+        }
+        else if (xDirection < 0 && facingRight)
+        {
+            Flip();
+        }
+    }
+    void Flip()
+    {
+        Vector3 currentScale = transform.localScale;
+        currentScale.x *= -1;
+        transform.localScale = currentScale;
+
+        facingRight = !facingRight;
     }
 
     private void FixedUpdate()
