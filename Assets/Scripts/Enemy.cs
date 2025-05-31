@@ -17,10 +17,22 @@ public class Enemy : MonoBehaviour
 
     public int damage = 1;
 
+
+    public int maxhealth = 3;
+    private int currenthealth;
+    private SpriteRenderer spriteRenderer;
+
+    private Color ogcolor;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         Player = GameObject.FindWithTag("Player").GetComponent <Transform>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        currenthealth = maxhealth;
+
+        ogcolor = spriteRenderer.color;
     }
 
     void Update()
@@ -83,5 +95,27 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int damage)
+    {
+        currenthealth -= damage;
+        StartCoroutine(flashred());
+
+        if (currenthealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private IEnumerator flashred()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = ogcolor;
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
 
 }
