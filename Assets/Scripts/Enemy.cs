@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform Player;
+    private Transform Player;
     public float chasespeed = 2f;
     public float jumpforce = 2f;
     public LayerMask groundlayer;
@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        Player = GameObject.FindWithTag("Player").GetComponent <Transform>();
     }
 
     void Update()
