@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,9 @@ public class PlayerHealth : MonoBehaviour
 
     private Rigidbody2D rb2d;
     public float knockbackForce = 15f;
-    public Vector2 knockbackDirection = new Vector2(-1f, 1f); 
+    public Vector2 knockbackDirection = new Vector2(-1f, 1f);
+
+    public static event Action ondeath;
 
 
     void Start()
@@ -28,7 +31,17 @@ public class PlayerHealth : MonoBehaviour
         movement = GetComponent<BETTERMOVEMENT>();
         rb2d = GetComponent<Rigidbody2D>();
 
+
+        GameController.onreset += resetHP;
+
     }
+
+    void resetHP()
+    {
+        currhealth = maxhealth;
+        healthUI.setmaxhearts(maxhealth);
+    }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -50,7 +63,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currhealth <= 0)
         {
-
+            ondeath.Invoke();
         }
     }
     private void ApplyKnockback()

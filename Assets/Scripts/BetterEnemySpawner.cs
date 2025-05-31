@@ -19,18 +19,36 @@ public class BetterEnemySpawner : MonoBehaviour
     private bool isspawning = false;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         gathervalidpositions();
         StartCoroutine(spawnenemyifneeded());
+        GameController.onreset += levelchange;
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if(!tilemap.gameObject.activeInHierarchy)
+        {
+            levelchange();
+        }
+        if(!isspawning && activeobjectcount() < maxenemy)
+        {
+            StartCoroutine(spawnenemyifneeded());
+        }
+
     }
+
+
+    private void levelchange()
+    {
+        tilemap = GameObject.Find("MonsterNest").GetComponent<Tilemap>();
+        gathervalidpositions();
+        destroyallenemies();
+    }
+
+    
 
     private int activeobjectcount()
     {
@@ -61,7 +79,7 @@ public class BetterEnemySpawner : MonoBehaviour
         {
             return ObjectType.Enemy;
         }
-        else if(randomChoice >= enemyprobability)
+        else if(randomChoice <= enemyprobability)
         {
             return ObjectType.Enemy;
         }
@@ -106,9 +124,22 @@ public class BetterEnemySpawner : MonoBehaviour
         }
     }
 
-
-    private void gathervalidpositions()
+    private void destroyallenemies()
     {
+        foreach (GameObject obj in spawnenemy)
+        {
+            if (obj != null)
+            {
+                Destroy(obj);
+            }
+        }
+        spawnenemy.Clear();
+    }
+
+
+
+        private void gathervalidpositions()
+        {
         validspawnpositions.Clear();
         BoundsInt boundsInt = tilemap.cellBounds;
         TileBase[] alltiles = tilemap.GetTilesBlock(boundsInt);
