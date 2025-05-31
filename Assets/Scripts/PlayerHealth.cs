@@ -15,12 +15,11 @@ public class PlayerHealth : MonoBehaviour
 
     private Rigidbody2D rb2d;
     public float knockbackForce = 15f;
-    public Vector2 knockbackDirection = new Vector2(-1f, 1f); // Default direction
+    public Vector2 knockbackDirection = new Vector2(-1f, 1f); 
 
 
     void Start()
     {
-        
         currhealth = maxhealth;
         healthUI.setmaxhearts(maxhealth);
 
@@ -38,7 +37,6 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(enemy.damage);
         }
-
     }
 
     private void TakeDamage(int damage)
@@ -57,11 +55,10 @@ public class PlayerHealth : MonoBehaviour
     }
     private void ApplyKnockback()
     {
-        // Calculate knockback direction based on facing direction
         float direction = movement.facingRight ? -1f : 1f;
 
         Vector2 force = new Vector2(knockbackForce * direction, knockbackForce * 0.5f);
-        rb2d.velocity = Vector2.zero; // Reset velocity before applying force
+        rb2d.velocity = Vector2.zero; 
         rb2d.AddForce(force, ForceMode2D.Impulse);
     }
 
@@ -71,8 +68,5 @@ public class PlayerHealth : MonoBehaviour
         spriterenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         spriterenderer.color = Color.white;
-
     }
-
-
 }
