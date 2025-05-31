@@ -21,7 +21,8 @@ public class BETTERMOVEMENT : MonoBehaviour
 
     public float basegravity = 2f;
     public float maxfallspeed = 18f;
-    public float fallspeedmultiplier = 2f; 
+    public float fallspeedmultiplier = 2f;
+
 
     private void Awake()
     {
@@ -48,7 +49,9 @@ public class BETTERMOVEMENT : MonoBehaviour
         
     public void Move(InputAction.CallbackContext context)
     {
-        horizontalmove = context.ReadValue<Vector2>().x;
+        
+         horizontalmove = context.ReadValue<Vector2>().x;
+        
     }
     void Flip()
     {
@@ -58,25 +61,15 @@ public class BETTERMOVEMENT : MonoBehaviour
 
         facingRight = !facingRight;
     }
+
+
     private void FixedUpdate()
     {
-        animator.SetFloat("xVelocity", System.Math.Abs(rb2d.velocity.x));
-    }
 
-    //public void jump(InputAction.CallbackContext context)
-    //{
-    //    if (isgrounded())
-    //    {
-    //        if (context.performed)
-    //        {
-    //            rb2d.velocity = new Vector2(rb2d.velocity.x, JumpPower);
-    //        }
-    //        else if (context.canceled)
-    //        {
-    //            rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.5f);
-    //        }
-    //    }
-    //}
+        animator.SetFloat("xVelocity", System.Math.Abs(rb2d.velocity.x));
+
+
+    }
 
     public void jump(InputAction.CallbackContext context)
     {

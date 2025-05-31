@@ -9,15 +9,26 @@ public class PlayerHealth : MonoBehaviour
     private int currhealth;
 
     public HealthUI healthUI;
+    public BETTERMOVEMENT movement;
 
     private SpriteRenderer spriterenderer;
 
+    private Rigidbody2D rb2d;
+    public float knockbackForce = 15f;
+    public Vector2 knockbackDirection = new Vector2(-1f, 1f); // Default direction
+
+
     void Start()
     {
+        
         currhealth = maxhealth;
         healthUI.setmaxhearts(maxhealth);
 
         spriterenderer = GetComponent<SpriteRenderer>();
+
+        movement = GetComponent<BETTERMOVEMENT>();
+        rb2d = GetComponent<Rigidbody2D>();
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,11 +48,23 @@ public class PlayerHealth : MonoBehaviour
 
         StartCoroutine(FlashRed());
 
+        ApplyKnockback();
+
         if (currhealth <= 0)
         {
 
         }
     }
+    private void ApplyKnockback()
+    {
+        // Calculate knockback direction based on facing direction
+        float direction = movement.facingRight ? -1f : 1f;
+
+        Vector2 force = new Vector2(knockbackForce * direction, knockbackForce * 0.5f);
+        rb2d.velocity = Vector2.zero; // Reset velocity before applying force
+        rb2d.AddForce(force, ForceMode2D.Impulse);
+    }
+
 
     private IEnumerator FlashRed()
     {

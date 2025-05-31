@@ -13185,6 +13185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhealth: 5
   healthUI: {fileID: 1317493012}
+  movement: {fileID: 0}
+  knockbackForce: 15
+  knockbackDirection: {x: -1, y: 1}
 --- !u!1 &1976975226
 GameObject:
   m_ObjectHideFlags: 0
