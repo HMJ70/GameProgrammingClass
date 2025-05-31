@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour
     private bool shouldjump;
 
     public bool facingRight = true;
+
+    public int damage = 1;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
