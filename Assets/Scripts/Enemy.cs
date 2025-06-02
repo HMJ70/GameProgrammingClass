@@ -103,7 +103,7 @@ public class Enemy : MonoBehaviour
     {
         currenthealth -= damage;
         StartCoroutine(flashred());
-
+        sfxmanager.Play("EnemyHit");
         if (currenthealth <= 0)
         {
             Die();

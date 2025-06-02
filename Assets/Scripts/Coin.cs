@@ -11,6 +11,7 @@ public class Coin : MonoBehaviour, IItem
     public void collect()
     {
         OnCoinCollect.Invoke(worth);
+        sfxmanager.Play("Coin");
         Destroy(gameObject);
     }
 }

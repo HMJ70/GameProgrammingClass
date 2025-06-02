@@ -62,12 +62,19 @@ public class PlayerHealth : MonoBehaviour
         if (enemy != null)
         {
             TakeDamage(enemy.damage);
+            sfxmanager.Play("PlayerHit");
         }
         Trap trap = collision.GetComponent<Trap>();
         if(trap && trap.damage > 0)
         {
             TakeDamage(trap.damage);
+            sfxmanager.Play("PlayerHit");
         }
+        else if(trap)
+        {
+            sfxmanager.Play("Bounce");
+        }
+
     }
 
     void healing(int amount)

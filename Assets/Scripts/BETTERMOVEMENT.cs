@@ -101,16 +101,19 @@ public class BETTERMOVEMENT : MonoBehaviour
 
     public void jump(InputAction.CallbackContext context)
     {
+        
         if (context.performed && isgrounded())
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, JumpPower);
             dust.Play();
+            
         }
 
         if (context.canceled && rb2d.velocity.y > 0)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.5f);
             dust.Play();
+            
         }
     }
 
