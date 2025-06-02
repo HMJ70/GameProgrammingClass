@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
 
     private Color ogcolor;
 
+    public List<Loots> loottable = new List<Loots>();
+
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -115,7 +118,34 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        List<GameObject> droppableItems = new List<GameObject>();
+
+        foreach (Loots loots in loottable)
+        {
+            if (Random.Range(0f, 100f) <= loots.dropchance)
+            {
+                droppableItems.Add(loots.itemprefab);
+            }
+        }
+
+        if (droppableItems.Count > 0)
+        {
+            GameObject chosenLoot = droppableItems[Random.Range(0, droppableItems.Count)];
+            Instantiateloot(chosenLoot);
+        }
+
         Destroy(gameObject);
     }
+
+
+    void Instantiateloot(GameObject loots)
+    {
+        if(loots)
+        {
+            GameObject droppedloot = Instantiate(loots, transform.position,Quaternion.identity);
+            droppedloot.GetComponent<SpriteRenderer>().color = Color.white  ;
+        }    
+    }
+
 
 }

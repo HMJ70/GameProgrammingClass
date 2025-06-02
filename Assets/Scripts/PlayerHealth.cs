@@ -20,9 +20,18 @@ public class PlayerHealth : MonoBehaviour
 
     public static event Action ondeath;
 
+    public static PlayerHealth Instance;
 
     void Start()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
         currhealth = maxhealth;
         healthUI.setmaxhearts(maxhealth);
 
@@ -33,8 +42,12 @@ public class PlayerHealth : MonoBehaviour
 
 
         GameController.onreset += resetHP;
+        Heal.onhealthcollect += healing;
+
 
     }
+
+ 
 
     void resetHP()
     {
@@ -52,8 +65,20 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    void healing(int amount)
+    {
+        currhealth += amount;
+        if(currhealth > maxhealth)
+        {
+            currhealth = maxhealth;
+        }
+        healthUI.updateheart(currhealth);
+    }
+
+
     private void TakeDamage(int damage)
     {
+
         currhealth -= damage;
         healthUI.updateheart(currhealth);
 

@@ -28,6 +28,6 @@ public class shoot : MonoBehaviour
 
         GameObject bullet = Instantiate(bulletprefab, transform.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = shootdirection * bulletspeed;
-        Destroy(bullet, 2f);
+        Destroy(bullet, 1f);
     }
 }
