@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour
     void gameoverscreen()
     {
         gameoverscreen2.SetActive(true);
+        Player.GetComponent<BETTERMOVEMENT>().enabled = false;
         Time.timeScale = 0;
     }
 
@@ -47,8 +48,9 @@ public class GameController : MonoBehaviour
         gameoverscreen2.SetActive(false);
         loadlevel(0,false);
         onreset.Invoke();
+        Player.GetComponent<BETTERMOVEMENT>().enabled = true;
         Time.timeScale = 1;
-       
+        
     }
     void loadlevel(int level, bool wantsurvivedicrease)
     {

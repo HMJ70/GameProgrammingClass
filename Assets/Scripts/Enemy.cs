@@ -66,15 +66,16 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        float xDirection = Input.GetAxisRaw("Horizontal");
-        if (xDirection > 0 && !facingRight)
+        
+        if (direction > 0 && !facingRight)
         {
             Flip();
         }
-        else if (xDirection < 0 && facingRight)
+        else if (direction < 0 && facingRight)
         {
             Flip();
         }
+
     }
     void Flip()
     {

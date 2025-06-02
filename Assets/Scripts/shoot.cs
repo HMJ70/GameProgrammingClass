@@ -22,12 +22,16 @@ public class shoot : MonoBehaviour
     void Shooting()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePosition.z = 0f; 
+        mousePosition.z = 0f;
 
         Vector3 shootdirection = (mousePosition - transform.position).normalized;
 
-        GameObject bullet = Instantiate(bulletprefab, transform.position, Quaternion.identity);
+        Vector3 spawnOffset = shootdirection * 1f; 
+        Vector3 spawnPosition = transform.position + spawnOffset;
+
+        GameObject bullet = Instantiate(bulletprefab, spawnPosition, Quaternion.identity);
         bullet.GetComponent<Rigidbody2D>().velocity = shootdirection * bulletspeed;
         Destroy(bullet, 1f);
     }
+
 }
