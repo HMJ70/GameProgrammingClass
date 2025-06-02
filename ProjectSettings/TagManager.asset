@@ -8,6 +8,7 @@ TagManager:
   - GroundFromBelowAndSide
   - Monster
   - Bullet
+  - Loot
   layers:
   - Default
   - TransparentFX

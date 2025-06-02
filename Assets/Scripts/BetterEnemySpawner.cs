@@ -6,157 +6,137 @@ using UnityEngine.Tilemaps;
 
 public class BetterEnemySpawner : MonoBehaviour
 {
-    public enum ObjectType {Enemy}
+    public enum ObjectType { Enemy }
 
     public Tilemap tilemap;
-    public GameObject[] enemyprefab;
-    public float enemyprobability = 0.1f;
-    public int maxenemy = 5;
-    public float spawninterval = 0.5f;
+    public GameObject[] enemyPrefabs;
+    public float enemyProbability = 1f;
+    public int maxEnemy = 10;
+    public float spawnInterval = 5f;
 
-    private List<Vector3> validspawnpositions = new List<Vector3>();
-    private List<GameObject> spawnenemy = new List<GameObject>();
-    private bool isspawning = false;
+    private List<Vector3> validSpawnPositions = new List<Vector3>();
+    private List<GameObject> spawnedEnemies = new List<GameObject>();
+    private bool isSpawning = false;
+    public string lootTag = "Loot";
 
+    private void DestroyAllLoot()
+    {
+        GameObject[] lootObjects = GameObject.FindGameObjectsWithTag(lootTag);
+        foreach (GameObject loot in lootObjects)
+        {
+            Destroy(loot);
+        }
+    }
 
     void Start()
     {
-        gathervalidpositions();
-        StartCoroutine(spawnenemyifneeded());
-        GameController.onreset += levelchange;
-
+        GatherValidPositions();
+        StartCoroutine(SpawnEnemiesIfNeeded());
+        GameController.onreset += OnLevelChange;
     }
 
     void Update()
     {
-        if(!tilemap.gameObject.activeInHierarchy)
+        if (!tilemap.gameObject.activeInHierarchy)
         {
-            levelchange();
-        }
-        if(!isspawning && activeobjectcount() < maxenemy)
-        {
-            StartCoroutine(spawnenemyifneeded());
+            OnLevelChange();
         }
 
+        if (!isSpawning && ActiveEnemyCount() < maxEnemy)
+        {
+            StartCoroutine(SpawnEnemiesIfNeeded());
+        }
     }
 
-
-    private void levelchange()
+    private void OnLevelChange()
     {
         tilemap = GameObject.Find("MonsterNest").GetComponent<Tilemap>();
-        gathervalidpositions();
-        destroyallenemies();
+        GatherValidPositions();
+        DestroyAllEnemies();
+        DestroyAllLoot();
     }
 
-    
-
-    private int activeobjectcount()
+    private int ActiveEnemyCount()
     {
-        spawnenemy.RemoveAll(item => item == null);
-        return spawnenemy.Count;
+        spawnedEnemies.RemoveAll(item => item == null);
+        return spawnedEnemies.Count;
     }
 
-    private IEnumerator spawnenemyifneeded()
+    private IEnumerator SpawnEnemiesIfNeeded()
     {
-        isspawning = true;
-        while(activeobjectcount() < maxenemy)
+        isSpawning = true;
+        GatherValidPositions(); 
+
+        while (ActiveEnemyCount() < maxEnemy)
         {
-            spawnenemies();
-            yield return new WaitForSeconds(spawninterval);
+            TrySpawnEnemy();
+            yield return new WaitForSeconds(spawnInterval);
         }
-        isspawning=false;
+
+        isSpawning = false;
     }
 
-    private bool positionhasobject(Vector3 positiontocheck)
+    private bool PositionHasObject(Vector3 positionToCheck)
     {
-        return spawnenemy.Any(checkobj => checkobj && Vector3.Distance(checkobj.transform.position,positiontocheck) < 1.0f);
+        return spawnedEnemies.Any(obj => obj && Vector3.Distance(obj.transform.position, positionToCheck) < 1.0f);
     }
 
     private ObjectType RandomObjectType()
     {
-        float randomChoice = Random.value;
-        if(randomChoice <= enemyprobability)
-        {
-            return ObjectType.Enemy;
-        }
-        else if(randomChoice <= enemyprobability)
-        {
-            return ObjectType.Enemy;
-        }
-        else
-        {
-            return ObjectType.Enemy;
-        }
-        
-    }    
+        return ObjectType.Enemy; 
+    }
 
-    private void spawnenemies()
+    private void TrySpawnEnemy()
     {
-        if(validspawnpositions.Count == 0)
-        {
-            return;
-        }
-        Vector3 spawnPosition = Vector3.zero;
-        bool validpositionfound = false;
+        if (validSpawnPositions.Count == 0) return;
 
-        while(!validpositionfound && validspawnpositions.Count > 0)
-        {
-            int randomIndex = Random.Range(0, validspawnpositions.Count);
-            Vector3 potentialposition = validspawnpositions[randomIndex];
-            Vector3 leftposition = potentialposition + Vector3.left;
-            Vector3 rightposition = potentialposition + Vector3.right;
+        List<Vector3> shuffledPositions = validSpawnPositions.OrderBy(_ => Random.value).ToList();
 
-            if(!positionhasobject(leftposition) && !positionhasobject(rightposition))
+        foreach (Vector3 potentialPos in shuffledPositions)
+        {
+            Vector3 left = potentialPos + Vector3.left;
+            Vector3 right = potentialPos + Vector3.right;
+
+            if (!PositionHasObject(left) && !PositionHasObject(right))
             {
-                spawnPosition = potentialposition;
-                validpositionfound = true;
+                GameObject prefab = enemyPrefabs[(int)RandomObjectType()];
+                GameObject enemy = Instantiate(prefab, potentialPos, Quaternion.identity);
+                spawnedEnemies.Add(enemy);
+                break; 
             }
-            validspawnpositions.RemoveAt(randomIndex);
-        }
-        if (validpositionfound)
-        {
-            ObjectType objectType = RandomObjectType();
-            //GameObject chosenprefab = enemyprefab[(int) objectType];
-            GameObject gameObject = Instantiate(enemyprefab[(int)objectType], spawnPosition, Quaternion.identity);
-            spawnenemy.Add(gameObject);
-
-
         }
     }
 
-    private void destroyallenemies()
+    private void DestroyAllEnemies()
     {
-        foreach (GameObject obj in spawnenemy)
+        foreach (GameObject enemy in spawnedEnemies)
         {
-            if (obj != null)
-            {
-                Destroy(obj);
-            }
+            if (enemy != null)
+                Destroy(enemy);
         }
-        spawnenemy.Clear();
+
+        spawnedEnemies.Clear();
     }
 
+    private void GatherValidPositions()
+    {
+        validSpawnPositions.Clear();
+        BoundsInt bounds = tilemap.cellBounds;
+        TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+        Vector3 start = tilemap.CellToWorld(new Vector3Int(bounds.xMin, bounds.yMin, 0));
 
-
-        private void gathervalidpositions()
+        for (int x = 0; x < bounds.size.x; x++)
         {
-        validspawnpositions.Clear();
-        BoundsInt boundsInt = tilemap.cellBounds;
-        TileBase[] alltiles = tilemap.GetTilesBlock(boundsInt);
-        Vector3 start = tilemap.CellToWorld(new Vector3Int(boundsInt.xMin, boundsInt.yMin, 0));
-        
-        for(int x = 0; x < boundsInt.size.x; x++)
-        {
-            for(int y = 0; y < boundsInt.size.y; y++)
+            for (int y = 0; y < bounds.size.y; y++)
             {
-                TileBase tile = alltiles[x + y * boundsInt.size.x];
-                if(tile != null)
+                TileBase tile = allTiles[x + y * bounds.size.x];
+                if (tile != null)
                 {
-                    Vector3 place = start + new Vector3(x + 0.5f, y + 2f,0);
-                    validspawnpositions.Add(place);
+                    Vector3 pos = start + new Vector3(x + 0.5f, y + 0.5f, 0);
+                    validSpawnPositions.Add(pos);
                 }
             }
         }
-
     }
+
 }

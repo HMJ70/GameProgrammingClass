@@ -11,6 +11,11 @@ public class BETTERMOVEMENT : MonoBehaviour
     public bool facingRight = true;
 
     float horizontalmove;
+    float speedmultiplier =  1f;
+
+    public ParticleSystem dust;
+    public ParticleSystem speedfx;
+
     Animator animator;
 
     public float JumpPower = 10f;
@@ -23,6 +28,24 @@ public class BETTERMOVEMENT : MonoBehaviour
     public float maxfallspeed = 18f;
     public float fallspeedmultiplier = 2f;
 
+    private void Start()
+    {
+        SpeedDrink.onspeedcollected += startspeedboost;
+    }
+
+    void startspeedboost(float multiplier)
+    {
+        StartCoroutine(speedboostcoroutine(multiplier));
+    }
+
+    private IEnumerator speedboostcoroutine(float multiplier)
+    {
+        speedmultiplier = multiplier;
+        speedfx.Play();
+        yield return new WaitForSeconds(2f);
+        speedmultiplier = 1f;
+        speedfx.Stop();
+    }
 
     private void Awake()
     {
@@ -33,7 +56,7 @@ public class BETTERMOVEMENT : MonoBehaviour
     void Update()
     {
         float xDirection = Input.GetAxisRaw("Horizontal");
-        rb2d.velocity = new Vector2(horizontalmove * speed, rb2d.velocity.y);
+        rb2d.velocity = new Vector2(horizontalmove * speed * speedmultiplier, rb2d.velocity.y);
 
         if (xDirection > 0 && !facingRight)
         {
@@ -50,14 +73,21 @@ public class BETTERMOVEMENT : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
          horizontalmove = context.ReadValue<Vector2>().x;
+         dust.Play();
     }
     void Flip()
     {
         Vector3 currentScale = transform.localScale;
         currentScale.x *= -1;
         transform.localScale = currentScale;
+        speedfx.transform.localScale = currentScale;
 
         facingRight = !facingRight;
+
+        if(rb2d.velocity.y == 0)
+        {
+            dust.Play();
+        }
     }
 
 
@@ -74,11 +104,13 @@ public class BETTERMOVEMENT : MonoBehaviour
         if (context.performed && isgrounded())
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, JumpPower);
+            dust.Play();
         }
 
         if (context.canceled && rb2d.velocity.y > 0)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.5f);
+            dust.Play();
         }
     }
 
