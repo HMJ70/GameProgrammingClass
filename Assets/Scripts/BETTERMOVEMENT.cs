@@ -49,9 +49,7 @@ public class BETTERMOVEMENT : MonoBehaviour
         
     public void Move(InputAction.CallbackContext context)
     {
-        
          horizontalmove = context.ReadValue<Vector2>().x;
-        
     }
     void Flip()
     {
