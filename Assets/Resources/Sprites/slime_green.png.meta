@@ -132,10 +132,10 @@ TextureImporter:
       name: slime_green_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 47
-        width: 16
-        height: 11
+        x: 5
+        y: 48
+        width: 14
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,10 +153,10 @@ TextureImporter:
       name: slime_green_1
       rect:
         serializedVersion: 2
-        x: 28
-        y: 47
-        width: 16
-        height: 12
+        x: 29
+        y: 48
+        width: 14
+        height: 10
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,10 +174,10 @@ TextureImporter:
       name: slime_green_2
       rect:
         serializedVersion: 2
-        x: 52
-        y: 47
-        width: 16
-        height: 13
+        x: 53
+        y: 48
+        width: 14
+        height: 11
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,10 +195,10 @@ TextureImporter:
       name: slime_green_3
       rect:
         serializedVersion: 2
-        x: 76
-        y: 47
-        width: 16
-        height: 14
+        x: 77
+        y: 48
+        width: 14
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +216,10 @@ TextureImporter:
       name: slime_green_4
       rect:
         serializedVersion: 2
-        x: 4
-        y: 23
-        width: 16
-        height: 14
+        x: 5
+        y: 24
+        width: 14
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,10 +237,10 @@ TextureImporter:
       name: slime_green_5
       rect:
         serializedVersion: 2
-        x: 28
-        y: 23
-        width: 16
-        height: 15
+        x: 29
+        y: 24
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,10 +258,10 @@ TextureImporter:
       name: slime_green_6
       rect:
         serializedVersion: 2
-        x: 52
-        y: 23
-        width: 16
-        height: 17
+        x: 53
+        y: 24
+        width: 14
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,10 +279,10 @@ TextureImporter:
       name: slime_green_7
       rect:
         serializedVersion: 2
-        x: 76
-        y: 23
-        width: 16
-        height: 15
+        x: 77
+        y: 24
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -300,10 +300,10 @@ TextureImporter:
       name: slime_green_8
       rect:
         serializedVersion: 2
-        x: 4
+        x: 5
         y: 0
-        width: 16
-        height: 16
+        width: 14
+        height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,10 +321,10 @@ TextureImporter:
       name: slime_green_9
       rect:
         serializedVersion: 2
-        x: 28
+        x: 29
         y: 0
-        width: 16
-        height: 14
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -342,10 +342,10 @@ TextureImporter:
       name: slime_green_10
       rect:
         serializedVersion: 2
-        x: 52
+        x: 53
         y: 0
-        width: 16
-        height: 14
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,10 +363,10 @@ TextureImporter:
       name: slime_green_11
       rect:
         serializedVersion: 2
-        x: 76
+        x: 77
         y: 0
-        width: 16
-        height: 14
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,7 +383,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 06d06143d804bf5498e12d252dd0c2c0
     internalID: 0
     vertices: []
     indices: 

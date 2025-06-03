@@ -22,11 +22,19 @@ public class BetterEnemySpawner : MonoBehaviour
     private void DestroyAllLoot()
     {
         GameObject[] lootObjects = GameObject.FindGameObjectsWithTag(lootTag);
+        GameObject[] monsterObjects = GameObject.FindGameObjectsWithTag("Monster");
+
         foreach (GameObject loot in lootObjects)
         {
             Destroy(loot);
         }
+
+        foreach (GameObject monster in monsterObjects)
+        {
+            Destroy(monster);
+        }
     }
+
 
     void Start()
     {

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1303221388233902907}
   - component: {fileID: -5418741318824390126}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemypurple
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1727531430047209334, guid: a89ca85b82f2ed8469ed92e487fb0a2a, type: 3}
+  m_Sprite: {fileID: 1214624252112049841, guid: ab950c40006819d4e8d20af0044efa3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb2b552e1ac724a499ef8c87c2046962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chasespeed: 1
-  jumpforce: 4
+  chasespeed: 6
+  jumpforce: 0
   groundlayer:
     serializedVersion: 2
     m_Bits: 8
@@ -157,13 +157,11 @@ MonoBehaviour:
   maxhealth: 3
   loottable:
   - itemprefab: {fileID: 7134188218585688057, guid: 8fbfdf5ba4f6c6d45ab067403e096f5d, type: 3}
-    dropchance: 52.5
+    dropchance: 51.7
   - itemprefab: {fileID: 8609529513658316244, guid: b222e45eb36a3e044978a459b2e2fe96, type: 3}
-    dropchance: 52.7
+    dropchance: 19.7
   - itemprefab: {fileID: 1320903918283278292, guid: d82d220f999737640882ca18f8cbf68f, type: 3}
-    dropchance: 50.9
-  - itemprefab: {fileID: 1303221388233902902, guid: fbff6073210e3c44a9849643cb6ab7a4, type: 3}
-    dropchance: 100
+    dropchance: 68.4
 --- !u!95 &-5418741318824390126
 Animator:
   serializedVersion: 5
@@ -174,7 +172,7 @@ Animator:
   m_GameObject: {fileID: 1303221388233902902}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 88ba38cc3415f824f96746410548e575, type: 2}
+  m_Controller: {fileID: 9100000, guid: c5b06ce85359133498c5e1ebbb194da3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void onstartclick()
     {
-        SceneManager.LoadScene("GameWorld");
+        SceneManager.LoadScene("TUTORIAL");
     }
 
     public void onexitclick()

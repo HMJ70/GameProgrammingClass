@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class GameController : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class GameController : MonoBehaviour
 
     public GameObject gameoverscreen2;
     public static event Action onreset;
+    private int completedLevels = 0;
 
     public AudioSource BGM;
 
@@ -36,8 +39,6 @@ public class GameController : MonoBehaviour
 
     }
 
-  
-
     void gameoverscreen()
     {
         gameoverscreen2.SetActive(true);
@@ -53,6 +54,7 @@ public class GameController : MonoBehaviour
 
     public void RetryGame()
     {
+        completedLevels = 0;
         gameoverscreen2.SetActive(false);
         loadlevel(0,false);
         onreset.Invoke();
@@ -81,11 +83,19 @@ public class GameController : MonoBehaviour
 
     void loadnextlevel()
     {
+        completedLevels++;
+
+        if (completedLevels >= 3)
+        {
+            SceneManager.LoadScene("Victory"); 
+            return;
+        }
+
         int nextlevelindex = (currlevelindex == levels.Count - 1) ? 0 : currlevelindex + 1;
         loadcanvas.SetActive(false);
 
-        levels[currlevelindex].gameObject.SetActive(false);
-        levels[nextlevelindex].gameObject.SetActive(true);
+        levels[currlevelindex].SetActive(false);
+        levels[nextlevelindex].SetActive(true);
 
         Player.transform.position = new Vector3(-13, 8, 0);
 
@@ -93,6 +103,7 @@ public class GameController : MonoBehaviour
         progressamount = 0;
         progresslider.value = 0;
     }
+
 
     private Action<int> IncreaseProgressAmount()
     {

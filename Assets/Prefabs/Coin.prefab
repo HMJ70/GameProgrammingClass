@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1375330005}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: Loot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645aaf8f054e2354f9bc75f08b8d73b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worth: 5
 --- !u!58 &7134188218585688056
 CircleCollider2D:
   m_ObjectHideFlags: 0
