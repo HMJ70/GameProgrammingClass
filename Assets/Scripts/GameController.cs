@@ -20,6 +20,8 @@ public class GameController : MonoBehaviour
     public GameObject gameoverscreen2;
     public static event Action onreset;
 
+    public AudioSource BGM;
+
     void Start()
     {
         progressamount = 0;
@@ -41,6 +43,12 @@ public class GameController : MonoBehaviour
         gameoverscreen2.SetActive(true);
         Player.GetComponent<BETTERMOVEMENT>().enabled = false;
         Time.timeScale = 0;
+
+        if (BGM != null)
+        {
+            BGM.Stop();  
+        }
+        sfxmanager.Play("GameOver");
     }
 
     public void RetryGame()
@@ -50,7 +58,12 @@ public class GameController : MonoBehaviour
         onreset.Invoke();
         Player.GetComponent<BETTERMOVEMENT>().enabled = true;
         Time.timeScale = 1;
-        
+
+        if (BGM  != null && !BGM.isPlaying)
+        {
+            BGM.Play();  
+        }
+
     }
     void loadlevel(int level, bool wantsurvivedicrease)
     {

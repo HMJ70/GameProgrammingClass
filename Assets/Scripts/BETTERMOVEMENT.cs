@@ -28,6 +28,9 @@ public class BETTERMOVEMENT : MonoBehaviour
     public float maxfallspeed = 18f;
     public float fallspeedmultiplier = 2f;
 
+    //private bool playingfootsteps = false;
+    //public float footstepspeed = 0.5f;
+
     private void Start()
     {
         SpeedDrink.onspeedcollected += startspeedboost;
@@ -106,7 +109,7 @@ public class BETTERMOVEMENT : MonoBehaviour
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x, JumpPower);
             dust.Play();
-            
+            sfxmanager.Play("Jump");
         }
 
         if (context.canceled && rb2d.velocity.y > 0)
