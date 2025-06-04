@@ -85,7 +85,7 @@ public class GameController : MonoBehaviour
     {
         completedLevels++;
 
-        if (completedLevels >= 3)
+        if (completedLevels >= 4)
         {
             SceneManager.LoadScene("Victory"); 
             return;
